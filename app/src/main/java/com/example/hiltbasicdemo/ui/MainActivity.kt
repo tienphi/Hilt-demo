@@ -3,13 +3,10 @@ package com.example.hiltbasicdemo.ui
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
@@ -60,15 +57,18 @@ fun GreetingPreview() {
 
 @Composable
 fun WidgetType(name: String, modifier: Modifier = Modifier) {
-    Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center,
-        modifier = modifier
-            .padding(8.dp)
-            .background(
-                color = MaterialTheme.colorScheme.primary)
-    ) {
-        Text(text = name)
+    Surface(
+        shape = MaterialTheme.shapes.medium,
+        color = MaterialTheme.colorScheme.secondary,
+        modifier = modifier.padding(8.dp)) {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center,
+        ) {
+            Text(text = name,
+                modifier = Modifier.padding(8.dp)
+                )
+        }
     }
 }
 
@@ -77,30 +77,5 @@ fun WidgetType(name: String, modifier: Modifier = Modifier) {
 fun WidgetTypePreview() {
     HiltBasicDemoTheme {
         WidgetType(name = "Weather")
-    }
-}
-
-@Composable
-fun ListWidgets(widgets: List<String>, modifier: Modifier = Modifier) {
-    if (widgets.isEmpty()) {
-        Text(text = "Not have any widgets!")
-    } else {
-        LazyVerticalGrid(
-            columns = GridCells.Adaptive(100.dp),
-            horizontalArrangement = Arrangement.spacedBy(24.dp),
-            verticalArrangement = Arrangement.spacedBy(24.dp)
-        ) {
-            items(widgets){widget ->
-                WidgetType(name = widget)
-            }
-        }
-    }
-}
-
-@Preview(showBackground = true, widthDp = 350, heightDp = 700)
-@Composable
-fun ListWidgetsPreview() {
-    HiltBasicDemoTheme {
-        ListWidgets(widgets = listOf("Weather", "Music", "Compass"))
     }
 }
